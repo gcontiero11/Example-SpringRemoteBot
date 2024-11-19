@@ -1,21 +1,23 @@
-package bot.services.choose_card;
+package com.bueno.contiero.examplespringremotebot.bot.services.choose_card;
 
 
-import bot.interfaces.Analise;
-import bot.interfaces.Choosing;
-import bot.services.utils.MyCards;
-import bot.services.utils.PowerCalculatorService;
-import model.CardToPlay;
-import model.GameIntel;
-import model.TrucoCard;
+import com.bueno.contiero.examplespringremotebot.bot.interfaces.Analise;
+import com.bueno.contiero.examplespringremotebot.bot.interfaces.Choosing;
+import com.bueno.contiero.examplespringremotebot.bot.services.utils.MyCards;
+import com.bueno.contiero.examplespringremotebot.bot.services.utils.PowerCalculatorService;
+import com.bueno.contiero.examplespringremotebot.model.CardToPlay;
+import com.bueno.contiero.examplespringremotebot.model.GameIntel;
+import com.bueno.contiero.examplespringremotebot.model.TrucoCard;
 
 import java.util.List;
 import java.util.Optional;
 
-import static bot.interfaces.Analise.HandStatus.GOD;
+import static com.bueno.contiero.examplespringremotebot.bot.interfaces.Analise.HandStatus.GOD;
+import static com.bueno.contiero.examplespringremotebot.bot.interfaces.Analise.HandStatus.GOOD;
 
 
-public class PassiveChoosing implements Choosing {
+public class AgressiveChoosing implements Choosing {
+
     private final GameIntel intel;
     private final Analise.HandStatus status;
     private final TrucoCard vira;
@@ -23,7 +25,7 @@ public class PassiveChoosing implements Choosing {
     private final TrucoCard secondBestCard;
     private final TrucoCard worstCard;
 
-    public PassiveChoosing(GameIntel intel, Analise.HandStatus status) {
+    public AgressiveChoosing(GameIntel intel, Analise.HandStatus status) {
         this.intel = intel;
         this.status = status;
         vira = intel.getVira();
@@ -40,15 +42,19 @@ public class PassiveChoosing implements Choosing {
 
         if (intel.getOpponentCard().isPresent()) {
             int opponentCardOnTableValue = intel.getOpponentCard().get().relativeValue(vira);
-
+            if (status == GOD || status == GOOD) {
+                if (secondBestCard.relativeValue(vira) == opponentCardOnTableValue && secondBestCard.relativeValue(vira) >= 11){
+                    return CardToPlay.of(secondBestCard);
+                }
+                return CardToPlay.of(worstCard);
+            }
             if (worstCard.relativeValue(vira) >= opponentCardOnTableValue) return CardToPlay.of(worstCard);
             if (secondBestCard.relativeValue(vira) >= opponentCardOnTableValue) return CardToPlay.of(secondBestCard);
             if (bestCard.relativeValue(vira) > opponentCardOnTableValue) return CardToPlay.of(bestCard);
         }
 
         if (haveAtLeastTwoManilhas()) {
-            if (secondBestCard.relativeValue(vira) == 10) return CardToPlay.of(secondBestCard);
-            if (secondBestCard.relativeValue(vira) >= 11) return CardToPlay.of(worstCard);
+            return CardToPlay.of(worstCard);
         }
 
         if (haveAtLeastOneManilha()) {
@@ -58,14 +64,15 @@ public class PassiveChoosing implements Choosing {
         }
         long handPower = powerOfTheTwoBestCards();
 
-        if (handPower >= 15 && secondBestCard.relativeValue(vira) >= 7) return CardToPlay.of(secondBestCard);
+        if (handPower >= 12 && secondBestCard.relativeValue(vira) >= 5) return CardToPlay.of(secondBestCard);
         return CardToPlay.of(bestCard);
     }
 
     @Override
     public CardToPlay secondRoundChoose() {
         if (PowerCalculatorService.wonFirstRound(intel)) {
-            if (status == GOD) return CardToPlay.of(worstCard);
+            if (status == GOD) return CardToPlay.discard(worstCard);
+            if (status == GOOD) return CardToPlay.of(worstCard);
             return CardToPlay.of(bestCard);
         }
 
@@ -108,4 +115,5 @@ public class PassiveChoosing implements Choosing {
                 .limit(2)
                 .sum();
     }
+
 }

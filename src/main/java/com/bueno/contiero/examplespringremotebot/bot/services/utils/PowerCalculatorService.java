@@ -1,8 +1,8 @@
-package bot.services.utils;
+package com.bueno.contiero.examplespringremotebot.bot.services.utils;
 
 
-import model.GameIntel;
-import model.TrucoCard;
+import com.bueno.contiero.examplespringremotebot.model.GameIntel;
+import com.bueno.contiero.examplespringremotebot.model.TrucoCard;
 
 import java.util.Comparator;
 import java.util.List;

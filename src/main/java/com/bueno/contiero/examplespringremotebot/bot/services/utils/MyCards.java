@@ -1,7 +1,7 @@
-package bot.services.utils;
+package com.bueno.contiero.examplespringremotebot.bot.services.utils;
 
 
-import model.TrucoCard;
+import com.bueno.contiero.examplespringremotebot.model.TrucoCard;
 
 import java.util.List;
 

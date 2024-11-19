@@ -1,8 +1,8 @@
-package bot.interfaces;
+package com.bueno.contiero.examplespringremotebot.bot.interfaces;
 
 
-import model.GameIntel;
-import model.TrucoCard;
+import com.bueno.contiero.examplespringremotebot.model.GameIntel;
+import com.bueno.contiero.examplespringremotebot.model.TrucoCard;
 
 import java.util.List;
 

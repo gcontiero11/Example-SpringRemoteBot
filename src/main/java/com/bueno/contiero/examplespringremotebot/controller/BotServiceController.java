@@ -1,13 +1,13 @@
-package controller;
+package com.bueno.contiero.examplespringremotebot.controller;
 
 import com.google.gson.Gson;
-import model.CardToPlay;
-import model.GameIntel;
+import com.bueno.contiero.examplespringremotebot.service.BotServiceProvider;
+import com.bueno.contiero.examplespringremotebot.model.CardToPlay;
+import com.bueno.contiero.examplespringremotebot.model.GameIntel;
 import org.springframework.web.bind.annotation.*;
-import service.BotServiceProvider;
 
 @RestController
-@RequestMapping
+@RequestMapping()
 public class BotServiceController {
     private final BotServiceProvider botImpl;
 

@@ -18,12 +18,12 @@
  *  along with CTruco.  If not, see <https://www.gnu.org/licenses/>
  */
 
-package service;
+package com.bueno.contiero.examplespringremotebot.service;
 
 
-import model.CardToPlay;
-import model.GameIntel;
-import model.TrucoCard;
+import com.bueno.contiero.examplespringremotebot.model.CardToPlay;
+import com.bueno.contiero.examplespringremotebot.model.GameIntel;
+import com.bueno.contiero.examplespringremotebot.model.TrucoCard;
 
 /**
  * <p>This interface imposes the behaviour that any bot must provide in order to enroll in a truco game.</p>

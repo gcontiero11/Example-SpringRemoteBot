@@ -1,24 +1,25 @@
-package bot;
+package com.bueno.contiero.examplespringremotebot.bot;
 
 
-import bot.interfaces.Analise;
-import bot.interfaces.Choosing;
-import bot.services.analise.AnaliseWhileLosing;
-import bot.services.analise.DefaultAnalise;
-import bot.services.choose_card.AgressiveChoosing;
-import bot.services.choose_card.PassiveChoosing;
-import bot.services.utils.PowerCalculatorService;
-import model.CardToPlay;
-import model.GameIntel;
-import model.TrucoCard;
-import service.BotServiceProvider;
+import com.bueno.contiero.examplespringremotebot.bot.interfaces.Analise;
+import com.bueno.contiero.examplespringremotebot.bot.interfaces.Choosing;
+import com.bueno.contiero.examplespringremotebot.bot.services.analise.AnaliseWhileLosing;
+import com.bueno.contiero.examplespringremotebot.bot.services.analise.DefaultAnalise;
+import com.bueno.contiero.examplespringremotebot.bot.services.choose_card.AgressiveChoosing;
+import com.bueno.contiero.examplespringremotebot.bot.services.choose_card.PassiveChoosing;
+import com.bueno.contiero.examplespringremotebot.bot.services.utils.PowerCalculatorService;
+import com.bueno.contiero.examplespringremotebot.model.CardToPlay;
+import com.bueno.contiero.examplespringremotebot.model.GameIntel;
+import com.bueno.contiero.examplespringremotebot.model.TrucoCard;
+import org.springframework.stereotype.Service;
+import com.bueno.contiero.examplespringremotebot.service.BotServiceProvider;
 
 import java.util.List;
 
-import static bot.interfaces.Analise.HandStatus.*;
+import static com.bueno.contiero.examplespringremotebot.bot.interfaces.Analise.HandStatus.*;
 
-
-public class AtrasaBot implements BotServiceProvider {
+@Service
+public class ExampleSpringRemoteBot implements BotServiceProvider {
     private Analise.HandStatus status;
 
     @Override
